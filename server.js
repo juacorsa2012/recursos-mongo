@@ -5,7 +5,7 @@ const message = require('./utils/message')
 
 dotenv.config({ path: './config/.env' })
 
-conectarDB()
+//conectarDB()
 
 const PORT = process.env.PORT || 5000
 

@@ -1,3 +1,4 @@
+const dotenv = require('dotenv')
 const express = require('express')
 const statusCode = require('http-status-codes')
 const ErrorResponse = require('./utils/errorResponse')
@@ -6,10 +7,15 @@ const temasRouter = require('./routes/temas.router')
 const editorialesRouter = require('./routes/editoriales.router')
 const idiomasRouter = require('./routes/idiomas.router')
 const fabricantesRouter = require('./routes/fabricantes.router')
+const conectarDB = require('./config/db')
+
+dotenv.config({ path: './config/.env' })
 
 const app = express()
 
 app.use(express.json())
+
+conectarDB()
 
 app.use('/api/v1/temas', temasRouter)
 app.use('/api/v1/idiomas', idiomasRouter)
