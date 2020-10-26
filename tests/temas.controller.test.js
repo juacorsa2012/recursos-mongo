@@ -118,8 +118,8 @@ describe('/api/v1/temas', () => {
         tema = { nombre: "Tema 3" }
         const res = await request(app).put(url + idTema1).send(tema)
 
-        expect(res.statusCode).toBe(200)
-        expect(res.body.status).toBe('success')      
+        expect(res.statusCode).toBe(statusCode.OK)
+        expect(res.body.status).toBe(message.SUCCESS)   
         expect(res.body.data.tema._id).toBeDefined()
         expect(res.body.data.tema.nombre).toBe(tema.nombre)    
       })  
