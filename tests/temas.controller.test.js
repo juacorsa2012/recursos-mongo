@@ -3,14 +3,16 @@ const mongoose = require('mongoose')
 const statusCode = require('http-status-codes')
 const Tema = require('../models/tema.model')
 const message = require('../utils/message')
+const {clearDB} = require('./utils')
+
 const app = require('../app')
 
 const url = "/api/v1/temas/"
 
 describe('/api/v1/temas', () => {
     describe('GET /', () => {
-        beforeAll(async () => {
-          await Tema.deleteMany()
+        beforeAll(async () => {          
+          await clearDB()
           await Tema.create({ nombre: 'Tema 1'})  
         })
   
@@ -37,7 +39,7 @@ describe('/api/v1/temas', () => {
       let tema
 
       beforeAll(async () => {
-        await Tema.deleteMany()
+        await clearDB()
         tema = await Tema.create({ nombre: 'Tema 1'})  
       })
 
@@ -68,8 +70,8 @@ describe('/api/v1/temas', () => {
       let tema = { nombre: "Tema 1" }
 
       beforeAll(async () => {
-        await Tema.deleteMany()          
-      });
+        await clearDB()        
+      })
 
       it("debe devolver un tema", async () => {
         const res = await request(app).post(url).send(tema)
@@ -105,7 +107,7 @@ describe('/api/v1/temas', () => {
       let tema    
 
       beforeAll(async () => {
-        await Tema.deleteMany()
+        await clearDB()
         const tema1 = await Tema.create({ nombre: 'Tema 1' })  
         const tema2 = await Tema.create({ nombre: 'Tema 2' })  
         idTema1 = tema1._id
