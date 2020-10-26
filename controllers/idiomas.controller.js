@@ -68,7 +68,7 @@ const actualizarIdioma = asyncHandler(async (req, res, next) => {
       runValidators: true
     })  
             
-    res.status(StatusCodes.OK).json({
+    res.status(statusCode.OK).json({
       status: message.SUCCESS,
       message: message.IDIOMA_ACTUALIZADO,
       data: { idioma }

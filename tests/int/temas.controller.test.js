@@ -1,11 +1,11 @@
 const request = require('supertest')
 const mongoose = require('mongoose')
 const statusCode = require('http-status-codes')
-const Tema = require('../models/tema.model')
-const message = require('../utils/message')
-const {clearDB} = require('./utils')
+const Tema = require('../../models/tema.model')
+const message = require('../../utils/message')
+const {clearDB} = require('../utils')
 
-const app = require('../app')
+const app = require('../../app')
 
 const url = "/api/v1/temas/"
 

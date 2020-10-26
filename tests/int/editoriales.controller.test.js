@@ -1,12 +1,12 @@
 const request = require('supertest')
 const mongoose = require('mongoose')
 const statusCode = require('http-status-codes')
-const Editorial = require('../models/editorial.model')
-const message = require('../utils/message')
-const {clearDB} = require('./utils')
+const Editorial = require('../../models/editorial.model')
+const message = require('../../utils/message')
+const {clearDB} = require('../utils')
 
-const app = require('../app')
-const e = require('express')
+const app = require('../../app')
+
 
 const url = "/api/v1/editoriales/"
 
