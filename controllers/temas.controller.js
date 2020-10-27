@@ -76,7 +76,7 @@ const actualizarTema = asyncHandler(async (req, res, next) => {
 })
 
 // @desc    Obtiene el número de temas registrados
-// @route   PUT /api/v1/temas/contar
+// @route   GET /api/v1/temas/contar
 // @access  Public
 const contarTemas = asyncHandler(async (req, res, next) => {
     const count = await Tema.countDocuments()

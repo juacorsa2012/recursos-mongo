@@ -75,8 +75,8 @@ const actualizarIdioma = asyncHandler(async (req, res, next) => {
     })         
 })
 
-// @desc    Obtiene el número de temas registrados
-// @route   PUT /api/v1/temas/contar
+// @desc    Obtiene el número de idiomas registrados
+// @route   GET /api/v1/idiomas/contar
 // @access  Public
 const contarIdiomas = asyncHandler(async (req, res, next) => {
     const count = await Idioma.countDocuments()

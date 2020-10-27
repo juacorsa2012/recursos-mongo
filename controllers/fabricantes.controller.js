@@ -76,7 +76,7 @@ const actualizarFabricante = asyncHandler(async (req, res, next) => {
 })
 
 // @desc    Obtiene el número de fabricantes registrados
-// @route   PUT /api/v1/fabricantes/contar
+// @route   GET /api/v1/fabricantes/contar
 // @access  Public
 const contarFabricantes = asyncHandler(async (req, res, next) => {
     const count = await Fabricante.countDocuments()

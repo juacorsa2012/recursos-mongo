@@ -20,6 +20,12 @@ const EDITORIAL_ACTUALIZADA   = 'La editorial se ha actualizado con éxito'
 const FABRICANTE_NO_ENCONTRADO= 'El fabricante no existe en la base de datos'
 const FABRICANTE_REGISTRADO   = 'El fabricante se ha registrado con éxito'
 const FABRICANTE_ACTUALIZADO  = 'El fabricante se ha actualizado con éxito'
+const LIBRO_NO_ENCONTRADO     = 'El libro no existe en la base de datos'
+const LIBRO_REGISTRADO        = 'El libro se ha registrado con éxito'
+const LIBRO_ACTUALIZADO       = 'El libro se ha actualizado con éxito'
+const TUTORIAL_NO_ENCONTRADO  = 'El tutorial no existe en la base de datos'
+const TUTORIAL_REGISTRADO     = 'El tutorial se ha registrado con éxito'
+const TUTORIAL_ACTUALIZADO    = 'El tutorial se ha actualizado con éxito'
 
 module.exports = {
     SUCCESS: SUCCESS,
@@ -43,6 +49,11 @@ module.exports = {
     EDITORIAL_ACTUALIZADA   : EDITORIAL_ACTUALIZADA,
     FABRICANTE_NO_ENCONTRADO: FABRICANTE_NO_ENCONTRADO,
     FABRICANTE_REGISTRADO   : FABRICANTE_REGISTRADO,
-    FABRICANTE_ACTUALIZADO  : FABRICANTE_ACTUALIZADO
-        
+    FABRICANTE_ACTUALIZADO  : FABRICANTE_ACTUALIZADO,
+    LIBRO_ACTUALIZADO       : LIBRO_ACTUALIZADO,
+    LIBRO_NO_ENCONTRADO     : LIBRO_NO_ENCONTRADO,
+    LIBRO_REGISTRADO        : LIBRO_REGISTRADO,
+    TUTORIAL_ACTUALIZADO    : TUTORIAL_ACTUALIZADO,
+    TUTORIAL_NO_ENCONTRADO  : TUTORIAL_NO_ENCONTRADO,
+    TUTORIAL_REGISTRADO     : TUTORIAL_REGISTRADO
 }

@@ -76,7 +76,7 @@ const actualizarEditorial = asyncHandler(async (req, res, next) => {
 })
 
 // @desc    Obtiene el número de editoriales registradas
-// @route   PUT /api/v1/editoriales/contar
+// @route   GET /api/v1/editoriales/contar
 // @access  Public
 const contarEditoriales = asyncHandler(async (req, res, next) => {
     const count = await Editorial.countDocuments()
