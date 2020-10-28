@@ -7,7 +7,6 @@ const {clearDB} = require('../utils')
 
 const app = require('../../app')
 
-
 const url = "/api/v1/editoriales/"
 
 describe('/api/v1/editoriales', () => {
@@ -74,7 +73,7 @@ describe('/api/v1/editoriales', () => {
           await clearDB()        
         })
   
-        it("debe devolver una editorial", async () => {
+        it("debe registrar una editorial", async () => {
           const res = await request(app).post(url).send(editorial)
   
           expect(res.statusCode).toBe(statusCode.CREATED)

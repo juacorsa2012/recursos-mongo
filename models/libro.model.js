@@ -1,10 +1,11 @@
 const mongoose = require('mongoose')
+const message  = require('../utils/message')
 
 const libroSchema = new mongoose.Schema(
 {
 	titulo: {
     type: String,
-    required: [true, 'El título del libro es un dato requerido'],      
+    required: [true, message.TITULO_REQUERIDO],
     trim: true
   },
 
@@ -13,31 +14,31 @@ const libroSchema = new mongoose.Schema(
   tema: {
     type: mongoose.Schema.ObjectId,
     ref: 'Tema',
-    required: [true, 'El tema del libro es un dato requerido']
+    required: [true, message.TEMA_REQUERIDO]
   },
 
   editorial: {
     type: mongoose.Schema.ObjectId,
     ref: 'Editorial',
-    required: [true, 'La editorial del libro es un dato requerido']
+    required: [true, message.EDITORIAL_REQUERIDA]
   },
 
   idioma: {
     type: mongoose.Schema.ObjectId,
-    ref: 'Idioma',
-    required: [true, 'El idioma del libro es un dato requerido']
+    ref: 'Idioma',  
+    required: [true, message.IDIOMA_REQUERIDO]
   },
 
   paginas: {
     type: Number,
-    required: [true, 'El número de páginas es un dato requerido'],
-    min: [1, 'El número de páginas debe ser como mínimo de una']
+    required: [true, message.PAGINAS_REQUERIDO],
+    min: [1, message.PAGINAS_MINIMO]
   },
 
   publicado: {
     type: Number,
-    required: [true, 'El año de publicación es un dato requerido'],
-    min: [2010, 'El año de publicación no puede ser anterior a 2010']
+    required: [true, message.PUBLICADO_REQUERIDO],
+    min: [2005, message.PUBLICADO_LIBRO_MINIMO]
   },
 
   created_at: {

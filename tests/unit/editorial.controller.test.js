@@ -9,7 +9,7 @@ describe("EditorialController", () => {
     expect(typeof EditorialController.obtenerEditorial).toBe("function")
   })
 
-  it("debería existir un función llamada crearEditorial", () => {
+  it("debería existir un función llamada registrarEditorial", () => {
     expect(typeof EditorialController.registrarEditorial).toBe("function")
   })
 

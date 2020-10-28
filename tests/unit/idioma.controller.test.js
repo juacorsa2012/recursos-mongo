@@ -9,7 +9,7 @@ describe("IdiomaController", () => {
     expect(typeof IdiomaController.obtenerIdioma).toBe("function")
   })
 
-  it("debería existir un función llamada crearIdioma", () => {
+  it("debería existir un función llamada registrarIdioma", () => {
     expect(typeof IdiomaController.registrarIdioma).toBe("function")
   })
 

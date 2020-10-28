@@ -9,7 +9,7 @@ describe("TemaController", () => {
     expect(typeof TemaController.obtenerTema).toBe("function")
   })
 
-  it("debería existir un función llamada crearTema", () => {
+  it("debería existir un función llamada registrarTema", () => {
     expect(typeof TemaController.registrarTema).toBe("function")
   })
 

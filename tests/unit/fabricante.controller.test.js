@@ -9,7 +9,7 @@ describe("FabricanteController", () => {
     expect(typeof FabricanteController.obtenerFabricante).toBe("function")
   })
 
-  it("debería existir un función llamada crearFabricante", () => {
+  it("debería existir un función llamada registrarFabricante", () => {
     expect(typeof FabricanteController.registrarFabricante).toBe("function")
   })
 
