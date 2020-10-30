@@ -1,7 +1,7 @@
 require('dotenv').config({ path: '../config/.env' });
 const faker = require('faker')
 const mongoose = require('mongoose')
-const argv = require('minimist')(process.argv.slice(2))
+const argv   = require('minimist')(process.argv.slice(2))
 const Tema   = require('../models/tema.model')
 const Idioma = require('../models/idioma.model')
 const Fabricante = require('../models/fabricante.model')
@@ -86,6 +86,15 @@ const seedEditoriales = async (docs) => {
     }
 }
 
+const seedLibros = async (docs) => {
+
+}
+
+const seedTutoriales = async (docs) => {
+
+}
+
+
 mongoose.connect(database, options)
 
 const n = argv['n']
@@ -107,6 +116,13 @@ switch(resource) {
         seedEditoriales(n)
         break      
     
-
-
+    case 'libros':
+        seedLibros(n)
+        break      
+    case 'tutoriales':
+        seedTutoriales(n)
+        break      
+    default:
+        console.log('Oopss!!. La opción indicada no es correcta!')
+        process.exit()
 }

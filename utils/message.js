@@ -34,6 +34,7 @@ const PAGINAS_REQUERIDO       = 'El número de páginas es un dato requerido'
 const PAGINAS_MINIMO          = 'El número de páginas debe ser como mínimo de una'
 const PUBLICADO_REQUERIDO     = 'El año de publicación es un dato requerido'
 const PUBLICADO_LIBRO_MINIMO  = 'El año de publicación no puede ser anterior a 2005'
+const PUBLICADO_MAXIMO        = 'El año de publicación no puede ser posterior al año en curso'
 
 module.exports = {
     SUCCESS,
@@ -69,5 +70,8 @@ module.exports = {
     EDITORIAL_REQUERIDA,
     IDIOMA_REQUERIDO,
     PAGINAS_REQUERIDO,
-    PAGINAS_MINIMO
+    PAGINAS_MINIMO,
+    LIBRO_REGISTRADO,
+    IDIOMA_ACTUALIZADO,
+    PUBLICADO_MAXIMO
 }

@@ -17,7 +17,9 @@
     "mongoose": "^5.10.9"
   },
   "devDependencies": {
+    "faker": "^5.1.0",
     "jest": "^26.6.1",
+    "minimist": "^1.2.5",
     "supertest": "^5.0.0"
   }
 }

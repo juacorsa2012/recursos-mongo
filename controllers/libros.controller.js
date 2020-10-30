@@ -4,12 +4,13 @@ const Features = require('./../utils/Features')
 const message = require('../utils/message')
 const ErrorResponse = require('../utils/errorResponse')
 const asyncHandler = require('../middlewares/async')
+const {añoActual} = require('../utils/helpers')
 
 // @desc    Obtiene los libros registrados
 // @route   GET /api/v1/libros
 // @access  Public
 const obtenerLibros = asyncHandler(async (req, res) => {    
-    const features = new Features(Libro.find(), req.query)
+    const features = new Features(Libro.find().populate('tema editorial idioma'), req.query)
       .filter()
       .sort()  
       .paginate()
@@ -22,6 +23,7 @@ const obtenerLibros = asyncHandler(async (req, res) => {
       data   : { libros }
     })
 })
+
 
 // @desc    Obtiene un libro
 // @route   GET /api/v1/libros/:id
@@ -43,6 +45,12 @@ const obtenerLibro = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/libros
 // @access  Public
 const registrarLibro = asyncHandler(async (req, res, next) => {    
+    const { publicado } = req.body
+
+    if (publicado > añoActual()) {
+      return next(new ErrorResponse(message.PUBLICADO_MAXIMO, statusCode.BAD_REQUEST))
+    }
+
     const libro = await Libro.create(req.body)  
       
     res.status(statusCode.CREATED).json({
@@ -56,23 +64,29 @@ const registrarLibro = asyncHandler(async (req, res, next) => {
 // @route   PUT /api/v1/libros/:id
 // @access  Public
 const actualizarLibro = asyncHandler(async (req, res, next) => {  
-    const id = req.params.id   
-    let libro = await Libro.findById(id)
+  const { publicado } = req.body
+
+  if (publicado > añoActual()) {
+    return next(new ErrorResponse(message.PUBLICADO_MAXIMO, statusCode.BAD_REQUEST))
+  }
+
+  const id = req.params.id   
+  let libro = await Libro.findById(id)
   
-    if (!libro) {
-      return next(new ErrorResponse(message.LIBRO_NO_ENCONTRADO, statusCode.NOT_FOUND))
-    }
+  if (!libro) {
+    return next(new ErrorResponse(message.LIBRO_NO_ENCONTRADO, statusCode.NOT_FOUND))
+  }
       
-    libro = await Libro.findByIdAndUpdate(id, req.body, {
-      new: true,
+  libro = await Libro.findByIdAndUpdate(id, req.body, {
+    new: true,
       runValidators: true
-    })  
+  })  
             
-    res.status(statusCode.OK).json({
-      status: message.SUCCESS,
-      message: message.LIBRO_ACTUALIZADO,
-      data: { libro }
-    })         
+  res.status(statusCode.OK).json({
+    status: message.SUCCESS,
+    message: message.LIBRO_ACTUALIZADO,
+    data: { libro }
+  })         
 })
 
 // @desc    Obtiene el número de libros registrados
