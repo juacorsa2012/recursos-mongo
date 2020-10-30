@@ -8,6 +8,7 @@ const editorialesRouter = require('./routes/editoriales.router')
 const idiomasRouter = require('./routes/idiomas.router')
 const fabricantesRouter = require('./routes/fabricantes.router')
 const librosRouter = require('./routes/libros.router')
+const tutorialesRouter = require('./routes/tutoriales.router')
 const conectarDB = require('./config/db')
 
 dotenv.config({ path: './config/.env' })
@@ -23,7 +24,7 @@ app.use('/api/v1/idiomas', idiomasRouter)
 app.use('/api/v1/fabricantes', fabricantesRouter)
 app.use('/api/v1/editoriales', editorialesRouter)
 app.use('/api/v1/libros', librosRouter)
-//app.use('/api/v1/tutoriales', tutorialesRouter)
+app.use('/api/v1/tutoriales', tutorialesRouter)
 
 app.all('*', (req, res, next) => {
     next(new ErrorResponse(`Imposible encontrar ${req.originalUrl} en este servidor!`, statusCode.NOT_FOUND))

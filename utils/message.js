@@ -35,6 +35,11 @@ const PAGINAS_MINIMO          = 'El número de páginas debe ser como mínimo de
 const PUBLICADO_REQUERIDO     = 'El año de publicación es un dato requerido'
 const PUBLICADO_LIBRO_MINIMO  = 'El año de publicación no puede ser anterior a 2005'
 const PUBLICADO_MAXIMO        = 'El año de publicación no puede ser posterior al año en curso'
+const FABRICANTE_REQUERIDO    = 'El fabricante es un dato requerido'
+const DURACION_REQUERIDA      = 'La duración es un dato requerido'
+const DURACION_MINIMA         = 'La duración del tutorial debe ser como mínimo de un minuto'
+const PUBLICADO_TUTORIAL_MINIMO  = 'El año de publicación no puede ser anterior a 2005'
+
 
 module.exports = {
     SUCCESS,
@@ -73,5 +78,9 @@ module.exports = {
     PAGINAS_MINIMO,
     LIBRO_REGISTRADO,
     IDIOMA_ACTUALIZADO,
-    PUBLICADO_MAXIMO
+    DURACION_MINIMA,
+    PUBLICADO_MAXIMO,
+    PUBLICADO_TUTORIAL_MINIMO,
+    FABRICANTE_REQUERIDO,
+    DURACION_REQUERIDA   
 }

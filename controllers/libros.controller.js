@@ -24,13 +24,12 @@ const obtenerLibros = asyncHandler(async (req, res) => {
     })
 })
 
-
 // @desc    Obtiene un libro
 // @route   GET /api/v1/libros/:id
 // @access  Public
 const obtenerLibro = asyncHandler(async (req, res, next) => {  
-    const libro = await Libro.findById(req.params.id)
-  
+    const libro = await (await Libro.findById(req.params.id).populate('tema editorial idioma'))
+    
     if (!libro) {     
       return next(new ErrorResponse(message.LIBRO_NO_ENCONTRADO, statusCode.NOT_FOUND))
     }   

@@ -6,6 +6,7 @@ const Idioma = require('../../models/idioma.model')
 const Libro  = require('../../models/libro.model')
 const message   = require('../../utils/message')
 const {clearDB} = require('../utils')
+const {añoActual} = require('../../utils/helpers')
 
 const app = require('../../app')
 
@@ -214,6 +215,24 @@ describe('/api/v1/libros', () => {
         expect(res.body.success).toBeFalsy()
         expect(res.body.error).toBe(message.EDITORIAL_REQUERIDA)
       })
+
+      it("debe devolver un error 400 si el año de publicación es posterior al año en curso", async () => {
+        const libro = {
+          "titulo"   : "título 1",  
+          "paginas"  : 23,
+          "publicado": añoActual() + 1,
+          "idioma"   : idioma._id,
+          "tema"     : tema._id,
+          "editorial": editorial._id
+        }        
+
+        const res = await request(app).post(url).send(libro)
+
+        expect(res.statusCode).toBe(statusCode.BAD_REQUEST)      
+        expect(res.body.success).toBeFalsy()
+        expect(res.body.error).toBe(message.PUBLICADO_MAXIMO)
+      })
+
     })
 
 
