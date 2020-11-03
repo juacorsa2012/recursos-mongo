@@ -9,7 +9,6 @@ const {clearDB} = require('../utils')
 const {añoActual} = require('../../utils/helpers')
 
 const app = require('../../app')
-
 const url = "/api/v1/libros/"
 
 describe('/api/v1/libros', () => {
@@ -58,24 +57,24 @@ describe('/api/v1/libros', () => {
       let editorial
       let idioma
       let tema
+      let libro
 
-      beforeAll(async () => {
+      beforeEach(async () => {
         await clearDB()        
         editorial = await Editorial.create({ nombre: 'Editorial 1'})  
         idioma = await Idioma.create({ nombre: 'Idioma 1'})  
         tema   = await Tema.create({ nombre: 'Tema 1'})  
+        libro = {
+          "titulo"    : "Titulo libro",
+          "paginas"   : 166,
+          "publicado" : añoActual(),
+          "tema"      : tema._id,
+          "editorial" : editorial._id,
+          "idioma"    : idioma._id
+        }
       })
 
       it("debe registrar un libro", async () => {
-        const libro = {
-          "titulo"   : "Titulo libro",
-          "paginas"  : 1,
-          "publicado": 2019,
-          "tema"     : tema._id,
-          "editorial": editorial._id,
-          "idioma"   : idioma._id
-        }
-
         const res = await request(app).post(url).send(libro)
 
         expect(res.statusCode).toBe(statusCode.CREATED)
@@ -86,14 +85,7 @@ describe('/api/v1/libros', () => {
       })
 
       it("debe devolver un error 400 cuando no se facilita el título del libro", async () => {
-        const libro = {
-          "titulo"   : "",
-          "paginas"  : 1,
-          "publicado": 2019,
-          "tema"     : tema._id,
-          "editorial": editorial._id,
-          "idioma"   : idioma._id
-        }        
+        libro.titulo = ''
 
         const res = await request(app).post(url).send(libro)
 
@@ -103,13 +95,7 @@ describe('/api/v1/libros', () => {
       })
 
       it("debe devolver un error 400 cuando no se facilita el número de páginas del libro", async () => {
-        const libro = {
-          "titulo"   : "título 1",          
-          "publicado": 2019,
-          "tema"     : tema._id,
-          "editorial": editorial._id,
-          "idioma"   : idioma._id
-        }        
+        delete libro.paginas
 
         const res = await request(app).post(url).send(libro)
 
@@ -119,15 +105,7 @@ describe('/api/v1/libros', () => {
       })
 
       it("debe devolver un error 400 cuando el número de páginas del libro es inferior a uno", async () => {
-        const libro = {
-          "titulo"   : "título 1",  
-          "paginas"  : 0,
-          "publicado": 2019,
-          "tema"     : tema._id,
-          "editorial": editorial._id,
-          "idioma"   : idioma._id
-        }        
-
+        libro.paginas = 0
         const res = await request(app).post(url).send(libro)
 
         expect(res.statusCode).toBe(statusCode.BAD_REQUEST)      
@@ -136,14 +114,7 @@ describe('/api/v1/libros', () => {
       })
 
       it("debe devolver un error 400 cuando el año de publicación es anterior a 2005", async () => {
-        const libro = {
-          "titulo"   : "título 1",  
-          "paginas"  : 23,
-          "publicado": 2004,
-          "tema"     : tema._id,
-          "editorial": editorial._id,
-          "idioma"   : idioma._id
-        }        
+        libro.publicado = 2004
 
         const res = await request(app).post(url).send(libro)
 
@@ -153,13 +124,7 @@ describe('/api/v1/libros', () => {
       })
 
       it("debe devolver un error 400 cuando no se facilita el año de publicación", async () => {
-        const libro = {
-          "titulo"   : "título 1",  
-          "paginas"  : 23,
-          "tema"     : tema._id,
-          "editorial": editorial._id,
-          "idioma"   : idioma._id
-        }        
+        delete libro.publicado
 
         const res = await request(app).post(url).send(libro)
 
@@ -169,13 +134,7 @@ describe('/api/v1/libros', () => {
       })
 
       it("debe devolver un error 400 cuando no se facilita el idioma del libro", async () => {
-        const libro = {
-          "titulo"   : "título 1",  
-          "paginas"  : 23,
-          "publicado": 2020,
-          "tema"     : tema._id,
-          "editorial": editorial._id          
-        }        
+        delete libro.idioma
 
         const res = await request(app).post(url).send(libro)
 
@@ -185,14 +144,8 @@ describe('/api/v1/libros', () => {
       })
 
       it("debe devolver un error 400 cuando no se facilita el tema del libro", async () => {
-        const libro = {
-          "titulo"   : "título 1",  
-          "paginas"  : 23,
-          "publicado": 2020,
-          "idioma"   : idioma._id,
-          "editorial": editorial._id          
-        }        
-
+        delete libro.tema
+        
         const res = await request(app).post(url).send(libro)
 
         expect(res.statusCode).toBe(statusCode.BAD_REQUEST)      
@@ -201,13 +154,7 @@ describe('/api/v1/libros', () => {
       })
 
       it("debe devolver un error 400 cuando no se facilita la editorial del libro", async () => {
-        const libro = {
-          "titulo"   : "título 1",  
-          "paginas"  : 23,
-          "publicado": 2020,
-          "idioma"   : idioma._id,
-          "tema"     : tema._id
-        }        
+        delete libro.editorial
 
         const res = await request(app).post(url).send(libro)
 
@@ -217,14 +164,7 @@ describe('/api/v1/libros', () => {
       })
 
       it("debe devolver un error 400 si el año de publicación es posterior al año en curso", async () => {
-        const libro = {
-          "titulo"   : "título 1",  
-          "paginas"  : 23,
-          "publicado": añoActual() + 1,
-          "idioma"   : idioma._id,
-          "tema"     : tema._id,
-          "editorial": editorial._id
-        }        
+        libro.publicado = añoActual() + 1
 
         const res = await request(app).post(url).send(libro)
 
