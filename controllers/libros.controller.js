@@ -4,7 +4,7 @@ const Features = require('./../utils/Features')
 const message = require('../utils/message')
 const ErrorResponse = require('../utils/errorResponse')
 const asyncHandler = require('../middlewares/async')
-const {añoActual} = require('../utils/helpers')
+const {añoActual, numeroConSeparadorMiles} = require('../utils/helpers')
 const Tema = require('../models/tema.model')
 const Editorial = require('../models/editorial.model')
 const Idioma = require('../models/idioma.model')
@@ -104,15 +104,119 @@ const actualizarLibro = asyncHandler(async (req, res, next) => {
 })
 
 // @desc    Obtiene el número de libros registrados
-// @route   GET /api/v1/libros/contar
+// @route   GET /api/v1/libros/stats/paginas
 // @access  Public
-const contarLibros = asyncHandler(async (req, res, next) => {
-    const count = await Libro.countDocuments()
-  
+const contarLibros = asyncHandler(async (req, res, next) => {    
+    const libros = await Libro.obtenerLibrosTotales()
+    const count = numeroConSeparadorMiles(libros[0].sum)
+
     res.status(statusCode.OK).json({
-      status: message.SUCCESS,
-      data: { count }
+      status : message.SUCCESS,
+      data   : { count }
     })           
+})
+
+// @desc    Obtiene el número de páginas totales de libros
+// @route   GET /api/v1/libros/stats/paginas
+// @access  Public
+const contarPaginas = asyncHandler(async (req, res, next) => {
+  const paginas = await Libro.obtenerPaginasTotales()
+  const count = numeroConSeparadorMiles(paginas[0].sum)
+
+  res.status(statusCode.OK).json({
+    status : message.SUCCESS,
+    data   : { count }
+  })           
+})
+
+// @desc    Obtiene un agrupado de libros por temas
+// @route   GET /api/v1/libros/stats/temas
+// @access  Public
+const obtenerLibrosPorTema = asyncHandler(async (req, res, next) => {  
+  const paginas = await Libro.obtenerLibrosTotales()
+  const count   = numeroConSeparadorMiles(paginas[0].sum)
+	const data = await Libro.obtenerLibrosPorTema()
+
+  res.status(statusCode.OK).json({ 
+    status : message.SUCCESS,
+    count,
+    data 
+  })
+})
+
+// @desc    Obtiene un agrupado de libros por año de publicación
+// @route   GET /api/v1/libros/stats/publicado
+// @access  Public
+const obtenerLibrosPorPublicado = asyncHandler(async (req, res, next) => {  
+  const paginas = await Libro.obtenerLibrosTotales()
+  const count   = numeroConSeparadorMiles(paginas[0].sum)
+	const data = await Libro.obtenerLibrosPorPublicado()
+
+  res.status(statusCode.OK).json({ 
+    status : message.SUCCESS,
+    count,
+    data 
+  })
+})
+
+// @desc    Obtiene un agrupado de libros por editorial
+// @route   GET /api/v1/libros/stats/editorial
+// @access  Public
+const obtenerLibrosPorEditorial = asyncHandler(async (req, res, next) => {  
+  const paginas = await Libro.obtenerLibrosTotales()
+  const count   = numeroConSeparadorMiles(paginas[0].sum)
+	const data = await Libro.obtenerLibrosPorEditorial()
+
+  res.status(statusCode.OK).json({ 
+    status : message.SUCCESS,
+    count,
+    data 
+  })
+})
+
+// @desc    Obtiene un agrupado de libros por idioma
+// @route   GET /api/v1/libros/stats/idioma
+// @access  Public
+const obtenerLibrosPorIdioma = asyncHandler(async (req, res, next) => {  
+  const paginas = await Libro.obtenerLibrosTotales()
+  const count   = numeroConSeparadorMiles(paginas[0].sum)
+	const data = await Libro.obtenerLibrosPorIdioma()
+
+  res.status(statusCode.OK).json({ 
+    status : message.SUCCESS,
+    count,
+    data 
+  })
+})
+
+// @desc    Obtiene un agrupado de libros por tema y año de publicación
+// @route   GET /api/v1/libros/stats/tema/publicado
+// @access  Public
+const obtenerLibrosPorTemaPublicado = asyncHandler(async (req, res, next) => {  
+  const paginas = await Libro.obtenerLibrosTotales()
+  const count   = numeroConSeparadorMiles(paginas[0].sum)
+	const data = await Libro.obtenerLibrosPorTemaPublicado()
+
+  res.status(statusCode.OK).json({ 
+    status : message.SUCCESS,
+    count,
+    data 
+  })
+})
+
+// @desc    Obtiene un agrupado de libros por editorial y año de publicación
+// @route   GET /api/v1/libros/stats/editorial/publicado
+// @access  Public
+const obtenerLibrosPorEditorialPublicado = asyncHandler(async (req, res, next) => {  
+  const paginas = await Libro.obtenerLibrosTotales()
+  const count   = numeroConSeparadorMiles(paginas[0].sum)
+	const data = await Libro.obtenerLibrosPorEditorialPublicado()
+
+  res.status(statusCode.OK).json({ 
+    status : message.SUCCESS,
+    count,
+    data 
+  })
 })
 
 module.exports = {
@@ -120,5 +224,12 @@ module.exports = {
     obtenerLibro,
     registrarLibro,
     actualizarLibro,
-    contarLibros
+    contarLibros,
+    contarPaginas,
+    obtenerLibrosPorTema,
+    obtenerLibrosPorPublicado,
+    obtenerLibrosPorEditorial,
+    obtenerLibrosPorIdioma,
+    obtenerLibrosPorTemaPublicado,
+    obtenerLibrosPorEditorialPublicado
 }

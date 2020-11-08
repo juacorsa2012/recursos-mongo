@@ -1,3 +1,4 @@
 
-1. AÑADIR A LOS TEST DE LIBROS LA OPCION DE ACTUALIZAR
-3. AÑADIR A LOS TEST DE TUTORIALES LA OPCION DE ACTUALIZAR
+1. Añadir auth
+2. Añadir agregados tutoriales
+3. Añadir seguridad

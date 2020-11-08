@@ -1,12 +1,12 @@
-const request = require('supertest')
+const request  = require('supertest')
 const mongoose = require('mongoose')
 const statusCode = require('http-status-codes')
 const Editorial  = require('../../models/editorial.model')
 const Tema   = require('../../models/tema.model')
 const Idioma = require('../../models/idioma.model')
 const Libro  = require('../../models/libro.model')
-const message   = require('../../utils/message')
-const {clearDB} = require('../utils')
+const message     = require('../../utils/message')
+const {clearDB}   = require('../utils')
 const {añoActual} = require('../../utils/helpers')
 
 const app = require('../../app')
@@ -52,6 +52,53 @@ describe('/api/v1/libros', () => {
           expect(res.body.status).toBe(message.SUCCESS)           
           expect(res.body.data.count).toBe(1)
         })
+    })
+
+    describe('GET /:id', () => {
+      let editorial
+      let idioma
+      let tema
+      let libro
+
+      beforeAll(async () => {          
+        await clearDB()
+        editorial = await Editorial.create({ nombre: 'Editorial 1'})  
+        idioma = await Idioma.create({ nombre: 'Idioma 1'})  
+        tema   = await Tema.create({ nombre: 'Tema 1'})  
+
+        const datos = {
+          "titulo"   : "Titulo libro",
+          "paginas"  : 1,
+          "publicado": añoActual(),
+          "tema"     : tema._id,
+          "editorial": editorial._id,
+          "idioma"   : idioma._id
+        }
+
+        libro = await Libro.create(datos)
+      })
+
+      it("debe devolver un libro", async() => {
+        const res = await request(app).get(url + libro._id)
+
+        expect(res.statusCode).toBe(statusCode.OK)
+        expect(res.body.status).toBe(message.SUCCESS)           
+        expect(res.body.data.libro.titulo).toBe(libro.titulo)
+        expect(res.body.data.libro._id).toBeDefined()         
+      })
+  
+      it("debe devolver un error 404 si el id está mal formado", async() => {
+        const id = mongoose.Types.ObjectId()
+        const res = await request(app).get(url + id)
+
+        expect(res.statusCode).toBe(statusCode.NOT_FOUND)
+      })
+
+      it("debe devolver un error 400 si el libro no existe", async() => {
+        const res = await request(app).get(url + '1')
+
+        expect(res.statusCode).toBe(statusCode.BAD_REQUEST)    
+      })      
     })
 
     describe('POST /', () => {   
@@ -264,8 +311,5 @@ describe('/api/v1/libros', () => {
       expect(res.statusCode).toBe(statusCode.BAD_REQUEST)
       expect(res.body.error).toBe(message.TITULO_REQUERIDO)
     })
-
-
-
   })
 })

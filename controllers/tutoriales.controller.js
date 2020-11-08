@@ -1,5 +1,8 @@
 const statusCode = require('http-status-codes')
 const Tutorial   = require('../models/tutorial.model')
+const Tema       = require('../models/tema.model')
+const Idioma     = require('../models/idioma.model')
+const Fabricante = require('../models/fabricante.model')
 const Features = require('./../utils/Features')
 const message  = require('../utils/message')
 const ErrorResponse = require('../utils/errorResponse')
@@ -63,10 +66,22 @@ const registrarTutorial = asyncHandler(async (req, res, next) => {
 // @route   PUT /api/v1/tutoriales/:id
 // @access  Public
 const actualizarTutorial = asyncHandler(async (req, res, next) => {  
-  const { publicado } = req.body
+  const { publicado, tema, idioma, fabricante } = req.body
 
   if (publicado > añoActual()) {
     return next(new ErrorResponse(message.PUBLICADO_MAXIMO, statusCode.BAD_REQUEST))
+  }
+
+  if (!await Tema.findById(tema)) {    
+    return next(new ErrorResponse(message.TEMA_NO_ENCONTRADO, statusCode.BAD_REQUEST))
+  }  
+  
+  if (!await Idioma.findById(idioma)) {    
+    return next(new ErrorResponse(message.IDIOMA_NO_ENCONTRADO, statusCode.BAD_REQUEST))
+  }
+  
+  if (!await Fabricante.findById(fabricante)) {    
+    return next(new ErrorResponse(message.FABRICANTE_NO_ENCONTRADO, statusCode.BAD_REQUEST))
   }
 
   const id = req.params.id   
