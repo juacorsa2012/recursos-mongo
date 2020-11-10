@@ -4,7 +4,10 @@ const { obtenerFabricantes,
         obtenerFabricante, 
         contarFabricantes,
         actualizarFabricante,
-        registrarFabricante } = require('./../controllers/fabricantes.controller')
+        registrarFabricante 
+      } = require('./../controllers/fabricantes.controller')
+
+const { protegido } = require('../controllers/auth.controller')
 
 const router = express.Router()
 

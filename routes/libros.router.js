@@ -13,6 +13,8 @@ const { obtenerLibros,
         obtenerLibrosPorEditorialPublicado
       } = require('./../controllers/libros.controller')
 
+const { protegido } = require('../controllers/auth.controller')
+
 const router = express.Router()
 
 router.route('/stats/libros').get(contarLibros)

@@ -39,7 +39,15 @@ const FABRICANTE_REQUERIDO    = 'El fabricante es un dato requerido'
 const DURACION_REQUERIDA      = 'La duración es un dato requerido'
 const DURACION_MINIMA         = 'La duración del tutorial debe ser como mínimo de un minuto'
 const PUBLICADO_TUTORIAL_MINIMO  = 'El año de publicación no puede ser anterior a 2005'
-
+const EMAIL_REQUERIDO         = 'El email del usuario es un dato requerido'
+const EMAIL_NO_VALIDO         = 'El email no es válido'
+const PASSWORD_REQUERIDO      = 'El password del usuario es un dato requerido'
+const PASSWORD_NO_VALIDO      = 'El password del usuario debe tener al menos 8 caracteres'
+const CREDENCIALES_INCORRECTAS= 'Email y/o contraseña incorrecta'
+const INICIAR_SESION          = 'Debe iniciar sesión para poder completar la acción requerida'
+const USUARIO_REQUERIDO       = 'El usuario no existe en la base de datos'
+const SIN_PERMISOS            = 'Opps!!. No dispones de los permisos necesarios para completar la acción solicitada'
+const LIMITE_PETICIONES       = 'Demasiadas peticiones desde esta IP'
 
 module.exports = {
     SUCCESS,
@@ -82,5 +90,14 @@ module.exports = {
     PUBLICADO_MAXIMO,
     PUBLICADO_TUTORIAL_MINIMO,
     FABRICANTE_REQUERIDO,
-    DURACION_REQUERIDA   
+    DURACION_REQUERIDA,
+    EMAIL_NO_VALIDO,
+    EMAIL_REQUERIDO,
+    CREDENCIALES_INCORRECTAS,
+    PASSWORD_REQUERIDO,
+    PASSWORD_NO_VALIDO,
+    INICIAR_SESION,
+    SIN_PERMISOS,
+    USUARIO_REQUERIDO,
+    LIMITE_PETICIONES
 }

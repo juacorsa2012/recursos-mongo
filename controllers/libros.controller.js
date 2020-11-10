@@ -104,7 +104,7 @@ const actualizarLibro = asyncHandler(async (req, res, next) => {
 })
 
 // @desc    Obtiene el número de libros registrados
-// @route   GET /api/v1/libros/stats/paginas
+// @route   GET /api/v1/libros/stats/libros
 // @access  Public
 const contarLibros = asyncHandler(async (req, res, next) => {    
     const libros = await Libro.obtenerLibrosTotales()

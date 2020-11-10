@@ -4,7 +4,10 @@ const { obtenerEditoriales,
         obtenerEditorial,
         contarEditoriales,
         actualizarEditorial,
-        registrarEditorial } = require('./../controllers/editoriales.controller')
+        registrarEditorial 
+      } = require('./../controllers/editoriales.controller')
+
+const { protegido } = require('../controllers/auth.controller')
 
 const router = express.Router()
 

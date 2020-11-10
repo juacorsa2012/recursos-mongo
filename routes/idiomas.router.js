@@ -3,7 +3,10 @@ const { obtenerIdiomas,
         obtenerIdioma, 
         contarIdiomas,
         actualizarIdioma,
-        registrarIdioma } = require('./../controllers/idiomas.controller')
+        registrarIdioma 
+      } = require('./../controllers/idiomas.controller')
+
+const { protegido } = require('../controllers/auth.controller')
 
 const router = express.Router()
 
